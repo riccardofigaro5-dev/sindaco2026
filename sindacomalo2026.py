@@ -52,10 +52,10 @@ if st.button("🔍 Scopri il risultato"):
     st.subheader("Il candidato più vicino alle tue idee è:")
 
     candidate_names = {
-        "A": "Candidato A",
-        "B": "Candidato B",
-        "C": "Candidato C",
-        "D": "Candidato D"
+        "A": "Marsetti",
+        "B": "De Zen",
+        "C": "Dalla Riva",
+        "D": "Sette"
     }
 
     st.markdown(f"## 🏆 {candidate_names[winner]}")
