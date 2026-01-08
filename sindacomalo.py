@@ -1,86 +1,63 @@
-# Lista di domande e risposte con relative posizioni dei candidati
+import streamlit as st
+
+st.set_page_config(page_title="Chi è il tuo candidato ideale?", layout="centered")
+
+st.title("🗳️ Scopri il candidato più vicino alle tue idee")
+st.write("Rispondi alle domande scegliendo la posizione che condividi di più.")
+
 questions = [
     {
-        "question": "Qual è la tua posizione sulla sicurezza?",
-        "answers": [
-            {"text": "Via tutti gli immigrati", "candidate": "Candidato B"},
-            {"text": "Pace e amore", "candidate": "Candidato A"},
-            {"text": "Serve più polizia", "candidate": "Candidato C"},
-            {"text": "Non menziona", "candidate": "Candidato D"}
-        ]
+        "question": "Sicurezza",
+        "answers": {
+            "Via tutti gli immigrati": "A",
+            "Pace e amore": "B",
+            "Serve più polizia": "C",
+            "Non è un tema prioritario": "D"
+        }
     },
     {
-        "question": "Qual è la tua posizione sull'ambiente?",
-        "answers": [
-            {"text": "No agli inceneritori", "candidate": "Candidato B"},
-            {"text": "Sostegno all'energia rinnovabile", "candidate": "Candidato A"},
-            {"text": "Sviluppo delle centrali nucleari", "candidate": "Candidato C"},
-            {"text": "Non menziona", "candidate": "Candidato D"}
-        ]
+        "question": "Ambiente",
+        "answers": {
+            "Bloccare tutte le grandi opere": "A",
+            "Investire solo sulle rinnovabili": "B",
+            "Sviluppo tecnologico e nucleare": "C",
+            "Tema secondario": "D"
+        }
     },
     {
-        "question": "Qual è la tua posizione sulla tassazione?",
-        "answers": [
-            {"text": "Tassare le grandi ricchezze", "candidate": "Candidato A"},
-            {"text": "Abbassare le tasse per tutti", "candidate": "Candidato B"},
-            {"text": "Tassare solo le multinazionali", "candidate": "Candidato C"},
-            {"text": "Non menziona", "candidate": "Candidato D"}
-        ]
+        "question": "Tassazione",
+        "answers": {
+            "Tassare i più ricchi": "A",
+            "Abbassare le tasse a tutti": "B",
+            "Tasse ridotte per le imprese": "C",
+            "Nessuna proposta chiara": "D"
+        }
     }
 ]
 
-# Funzione principale per raccogliere le risposte dell'utente
-def ask_questions():
-    scores = {
-        "Candidato A": 0,
-        "Candidato B": 0,
-        "Candidato C": 0,
-        "Candidato D": 0
+scores = {"A": 0, "B": 0, "C": 0, "D": 0}
+
+for i, q in enumerate(questions):
+    choice = st.radio(
+        f"**{q['question']}**",
+        list(q["answers"].keys()),
+        key=i
+    )
+    scores[q["answers"][choice]] += 1
+
+if st.button("🔍 Scopri il risultato"):
+    winner = max(scores, key=scores.get)
+
+    st.success("✅ Risultato calcolato!")
+    st.subheader("Il candidato più vicino alle tue idee è:")
+
+    candidate_names = {
+        "A": "Candidato A",
+        "B": "Candidato B",
+        "C": "Candidato C",
+        "D": "Candidato D"
     }
 
-    # Iteriamo attraverso le domande
-    for q in questions:
-        print(q["question"])
-        # Mostriamo le risposte
-        for idx, answer in enumerate(q["answers"]):
-            print(f"{idx + 1}. {answer['text']}")
-        
-        # Raccogliamo la risposta dell'utente
-        while True:
-            try:
-                answer_idx = int(input("Scegli una risposta (1-4): ")) - 1
-                if 0 <= answer_idx < 4:
-                    break
-                else:
-                    print("Per favore, scegli un numero tra 1 e 4.")
-            except ValueError:
-                print("Input non valido. Per favore, scegli un numero tra 1 e 4.")
-        
-        # Incrementiamo il punteggio per il candidato corrispondente
-        selected_answer = q["answers"][answer_idx]
-        scores[selected_answer["candidate"]] += 1
-    
-    return scores
-
-# Funzione per determinare il candidato più vicino
-def determine_candidate(scores):
-    # Troviamo il candidato con il punteggio più alto
-    most_suitable_candidate = max(scores, key=scores.get)
-    return most_suitable_candidate
-
-# Funzione principale del programma
-def main():
-    print("Benvenuto al quiz sui candidati sindaco!")
-    
-    # Raccogliamo le risposte
-    scores = ask_questions()
-    
-    # Determiniamo il candidato più vicino
-    winner = determine_candidate(scores)
-    
-    # Stampa il risultato
-    print(f"\nIl tuo candidato sindaco più vicino alle tue opinioni è: {winner}!")
-    print(f"Dettagli punteggi: {scores}")
-
-if __name__ == "__main__":
-    main()
+    st.markdown(f"## 🏆 {candidate_names[winner]}")
+    st.write("### Punteggi finali:")
+    st.write(scores)
