@@ -9,33 +9,33 @@ questions = [
     {
         "question": "Sicurezza",
         "answers": {
-            "Via tutti gli immigrati": "B",
-            "Pace e amore": "A",
-            "Serve più polizia": "C",
-            "Non è un tema prioritario": "D"
+            "Via tutti gli immigrati": "De Zen",
+            "Pace e amore": "Marsetti",
+            "Serve più polizia": "Dalla Riva",
+            "Non è un tema prioritario": "Sette"
         }
     },
     {
         "question": "Ambiente",
         "answers": {
-            "Bloccare tutte le grandi opere": "B",
-            "Investire solo sulle rinnovabili": "A",
-            "Sviluppo tecnologico e nucleare": "C",
-            "Tema secondario": "D"
+            "Bloccare tutte le grandi opere": "De Zen",
+            "Investire solo sulle rinnovabili": "Marsetti",
+            "Sviluppo tecnologico e nucleare": "Dalla Riva",
+            "Tema secondario": "Sette"
         }
     },
     {
         "question": "Tassazione",
         "answers": {
-            "Tassare i più ricchi": "A",
-            "Abbassare le tasse a tutti": "B",
-            "Tasse ridotte per le imprese": "C",
-            "Nessuna proposta chiara": "D"
+            "Tassare i più ricchi": "Marsetti",
+            "Abbassare le tasse a tutti": "De Zen",
+            "Tasse ridotte per le imprese": "Dalla Riva",
+            "Nessuna proposta chiara": "Sette"
         }
     }
 ]
 
-scores = {"A": 0, "B": 0, "C": 0, "D": 0}
+scores = {"Marsetti": 0, "De Zen": 0, "Dalla Riva": 0, "Sette": 0}
 
 for i, q in enumerate(questions):
     choice = st.radio(
@@ -52,10 +52,10 @@ if st.button("🔍 Scopri il risultato"):
     st.subheader("Il candidato più vicino alle tue idee è:")
 
     candidate_names = {
-        "A": "Marsetti",
-        "B": "De Zen",
-        "C": "Dalla Riva",
-        "D": "Sette"
+        "Marsetti": "Marsetti",
+        "De Zen": "De Zen",
+        "Dalla Riva": "Dalla Riva",
+        "Sette": "Sette"
     }
 
     st.markdown(f"## 🏆 {candidate_names[winner]}")
